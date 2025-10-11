@@ -2,6 +2,7 @@ package com.insurance.smart_claim_analyzer.Services;
 
 import com.insurance.smart_claim_analyzer.Model.Claim;
 import com.insurance.smart_claim_analyzer.Repository.ClaimRepository;
+import com.insurance.smart_claim_analyzer.Utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,21 +15,29 @@ public class ClaimService {
     @Autowired
     private ClaimRepository claimRepository;
 
-    private LocalDate dateola;
-    private LocalTime timeola;
+    @Autowired
+    private Utils utils;
 
-    public String addClaimService(Claim claim){
-        try{
+    public Claim addClaimService(String polno, String lossdte){
 
-            claim.setDateola(dateola.toString());
-            System.out.println("Date Set");
-            claim.setTimeola(timeola.toString());
-            System.out.println("Time Set");
-            claimRepository.save(claim);
-            System.out.println("Saved to DB");
-            return claim.toString();
-        }catch (Exception e){
-            return e.getMessage();
-        }
+        //Create new claim
+        Claim claim = new Claim(polno,lossdte);
+
+        //set the values
+        claim.setDateola(utils.dateola.toString());
+        claim.setTimeola(utils.timeola.toString());
+        claim.setNotifdte(utils.notifdte.toString());
+        claim.setStatus("O");
+
+        //auto generate claim number
+        int claimNo = utils.generateNumber();
+        claim.setClmno(String.valueOf(claimNo));
+
+        //save the claim details
+        claimRepository.save(claim);
+
+        System.out.println("Claim created successfully"+claim);
+        return claim;
     }
+
 }
