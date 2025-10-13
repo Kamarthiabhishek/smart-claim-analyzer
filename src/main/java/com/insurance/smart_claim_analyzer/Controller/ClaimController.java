@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-@RestController("/")
+@RestController("/c")
 public class ClaimController {
 
 
@@ -19,9 +19,9 @@ public class ClaimController {
     private ClaimService claimService;
 
 
-    @PostMapping("add/claim")
-    public Claim addClaim(@RequestParam String polno, @RequestParam String lossdte){
-        Claim createdClaim =  claimService.addClaimService(polno,lossdte);
-        return createdClaim;
-    }
+//    @PostMapping("add/claim")
+//    public Claim addClaim(@RequestParam String polno, @RequestParam String lossdte){
+//        Claim createdClaim =  claimService.addClaimService(polno,lossdte);
+//        return createdClaim;
+//    }
 }
