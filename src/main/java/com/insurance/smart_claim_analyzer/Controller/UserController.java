@@ -37,4 +37,9 @@ public class UserController {
     public ResponseEntity<String> ErrorScreen(HttpServletRequest request){
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access Denied");
     }
+
+    @GetMapping("hello")
+    public String hello(){
+        return "Hello";
+    }
 }
